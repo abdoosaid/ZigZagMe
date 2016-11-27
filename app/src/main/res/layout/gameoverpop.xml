@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:id="@+id/popup_layout"
+    tools:context="com.abdoosa.zigzagme.GameStart">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/replay"
+        android:text="Replay"
+        android:onClick="replay"
+        android:textSize="24sp"
+        style="@style/Widget.AppCompat.Button.Borderless" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scoreLabel"
+        android:text="Your Score"
+        android:textSize="36sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:textColor="@android:color/background_light">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scoreShow"
+        android:text="0"
+        android:textSize="36sp"
+        android:layout_below="@+id/scoreLabel"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/background_light">
+    </TextView>
+
+
+</RelativeLayout>

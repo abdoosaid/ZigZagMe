@@ -1,0 +1,217 @@
+package com.abdoosa.zigzagme;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.Notification;
+import android.content.Intent;
+import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+public class GameStart extends Activity {
+
+    DisplayMetrics disp = new DisplayMetrics();
+    RelativeLayout activity_main;
+    RelativeLayout.LayoutParams layoutPrms;
+    static int devHeight, devWidth;
+    Pillar[] pillars = new Pillar[23];
+    Top[] tops = new Top[23];
+    Handler h = new Handler();
+    Ball ball;
+    TextView counterText, scoreShow;
+    int r1, l1, counter;
+    boolean ballRight=true, colDetected=true;
+    int[] highScores;
+
+    LayoutInflater layoutInflater;
+    ViewGroup popupLayout;
+    PopupWindow popupWindow;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.game_layout);
+        initiateView();
+        movement();
+
+    }
+
+
+    public static void sendViewToBack(final View child){
+        final ViewGroup parent = (ViewGroup) child.getParent();
+        if(parent != null) {
+            parent.removeView(child);
+            parent.addView(child, 0);
+        }
+
+    }
+
+    public void initiateView(){
+        activity_main = (RelativeLayout) findViewById(R.id.game_layout);
+        setContentView(activity_main);
+        getWindowManager().getDefaultDisplay().getMetrics(disp);
+        devHeight = disp.heightPixels;
+        devWidth = disp.widthPixels;
+        ////////////////////////////
+        layoutInflater = (LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
+        popupLayout = (ViewGroup) layoutInflater.inflate(R.layout.gameoverpop, null);
+        popupWindow = new PopupWindow(popupLayout, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, false);
+
+        scoreShow = (TextView) popupLayout.findViewById(R.id.scoreShow);
+        ////////////////////////////
+
+        activity_main.setBackgroundColor(Color.GRAY);
+        counterText = (TextView) findViewById(R.id.counterText);
+
+        pillars[0] = new Pillar(this);
+        pillars[0].setFirstPillar();
+        activity_main.addView(pillars[0]);
+        sendViewToBack(pillars[0]);
+
+        tops[0] = new Top(this);
+        tops[0].setFirstPillar();
+
+        for(int i=1; i<pillars.length; i++){
+            pillars[i] = new Pillar(this);
+            pillars[i].setNewPillarX(pillars[i-1].getX());
+            pillars[i].pillarNewY(pillars[i-1].getY());
+            activity_main.addView(pillars[i]);
+            sendViewToBack(pillars[i]);
+
+            tops[i] = new Top(this);
+            tops[i].setX(pillars[i].getX());
+            tops[i].setY(pillars[i].getY());
+        }
+
+        ball = new Ball(this);
+        ball.setFirstBallPos(pillars[0].getX(), pillars[0].getY());
+        activity_main.addView(ball);
+
+
+    }
+
+    public void movement(){
+
+
+        ////
+
+        final int DELAY=100;
+        final MediaPlayer beep = MediaPlayer.create(this, R.raw.beep3);
+        final MediaPlayer gameover = MediaPlayer.create(this, R.raw.gameover2);
+        counterText.setText("0");
+        counter=0;
+
+        h.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                activity_main.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if(event.getAction() == MotionEvent.ACTION_UP){
+                            ballRight = !ballRight;
+                            counter+=5;
+                            counterText.setText(String.valueOf(counter));
+                            beep.start();
+                        }
+                        return false;
+                    }
+                });
+
+                for(int i=0; i<pillars.length; i++){
+                    ////Check collision
+                    r1 = (int) tops[i].getX();
+                    l1 = (int) tops[i].getY();
+                    if(tops[i].isInBottom()){
+                        if(ball.isCollisionDetected(r1, l1)){
+                            colDetected=true;
+                            break;
+                        }
+
+                    }
+                    colDetected=false;
+                }
+                if(!colDetected){
+                    gameover.start();
+                    popupWindow.showAtLocation(activity_main, Gravity.CENTER, 0, 0);
+                    scoreShow.setText(String.valueOf(counter));
+                    return;
+                }
+
+
+
+
+                // moving pillars through x-axis
+                for(int i=0; i<pillars.length; i++){
+
+                    if (pillars[i].isLow()){
+                        if(i == 0){
+                            pillars[i].setNewPillarX(pillars[pillars.length-1].getX());
+                            pillars[i].pillarNewY(pillars[pillars.length-1].getY());
+                            sendViewToBack(pillars[i]);
+                        }else{
+                            pillars[i].setNewPillarX(pillars[i-1].getX());
+                            pillars[i].pillarNewY(pillars[i-1].getY());
+                            sendViewToBack(pillars[i]);
+                        }
+                        break;
+                    }
+
+                    tops[i].setX(pillars[i].getX());
+                    tops[i].setY(pillars[i].getY());
+                }
+
+                // moving pillar and topPillar downward
+                for(int i=0; i<pillars.length; i++){
+                    pillars[i].setY(pillars[i].getY() + 6.5f);
+                    tops[i].setY(pillars[i].getY());
+                }
+
+                // moving ball on click
+                if(ballRight)
+                    ball.setX(ball.getX() + 9f);
+                else
+                    ball.setX(ball.getX() - 9f);
+                h.postDelayed(this, DELAY);
+            }
+        }, DELAY);
+    }
+    public void replay(View v){
+        for(int i=0; i<pillars.length; i++){
+            pillars[i].setVisibility(View.GONE);
+            tops[i].setVisibility(View.GONE);
+        }
+        ball.setVisibility(View.GONE);
+        popupWindow.dismiss();
+        initiateView();
+        movement();
+    }
+
+    private void addHighScore(int score){
+        for(int i=0; i<highScores.length; i++){
+            if (score > highScores[i]){
+                for (int j=highScores.length; j>i; j--){
+                    highScores[j] = highScores[j-1];
+                }
+                highScores[i] = score;
+                break;
+            }
+        }
+    }
+
+}
