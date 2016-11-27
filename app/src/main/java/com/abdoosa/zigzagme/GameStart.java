@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 public class GameStart extends Activity {
@@ -33,14 +34,17 @@ public class GameStart extends Activity {
     Top[] tops = new Top[23];
     Handler h = new Handler();
     Ball ball;
-    TextView counterText, scoreShow;
+    TextView counterText, scoreShow, score1, score2, score3, score4;
     int r1, l1, counter;
     boolean ballRight=true, colDetected=true;
-    int[] highScores;
+    int[] highScores = new int[4];
 
     LayoutInflater layoutInflater;
     ViewGroup popupLayout;
     PopupWindow popupWindow;
+
+    Button showHighScores;
+    TableLayout scoresTable;
 
 
     @Override
@@ -73,7 +77,14 @@ public class GameStart extends Activity {
         popupLayout = (ViewGroup) layoutInflater.inflate(R.layout.gameoverpop, null);
         popupWindow = new PopupWindow(popupLayout, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, false);
 
+        showHighScores = (Button) popupLayout.findViewById(R.id.highScores);
+        scoresTable = (TableLayout) popupLayout.findViewById(R.id.scoresTable);
+        ////////////////////////
         scoreShow = (TextView) popupLayout.findViewById(R.id.scoreShow);
+        score1 = (TextView) popupLayout.findViewById(R.id.score1);
+        score2 = (TextView) popupLayout.findViewById(R.id.score2);
+        score3 = (TextView) popupLayout.findViewById(R.id.score3);
+        score4 = (TextView) popupLayout.findViewById(R.id.score4);
         ////////////////////////////
 
         activity_main.setBackgroundColor(Color.GRAY);
@@ -109,9 +120,7 @@ public class GameStart extends Activity {
     public void movement(){
 
 
-        ////
-
-        final int DELAY=100;
+        final int DELAY=50;
         final MediaPlayer beep = MediaPlayer.create(this, R.raw.beep3);
         final MediaPlayer gameover = MediaPlayer.create(this, R.raw.gameover2);
         counterText.setText("0");
@@ -147,14 +156,15 @@ public class GameStart extends Activity {
                     colDetected=false;
                 }
                 if(!colDetected){
-                    gameover.start();
+                    /// When Game Over
+                    gameover.start(); //play gameover sound
                     popupWindow.showAtLocation(activity_main, Gravity.CENTER, 0, 0);
                     scoreShow.setText(String.valueOf(counter));
+                    addHighScore(counter);
+                    assignScores();
+                    for(int i=0; i<highScores.length; Log.i("hihi", String.valueOf(highScores[i++])));
                     return;
                 }
-
-
-
 
                 // moving pillars through x-axis
                 for(int i=0; i<pillars.length; i++){
@@ -205,7 +215,7 @@ public class GameStart extends Activity {
     private void addHighScore(int score){
         for(int i=0; i<highScores.length; i++){
             if (score > highScores[i]){
-                for (int j=highScores.length; j>i; j--){
+                for (int j=highScores.length-1; j>i; j--){
                     highScores[j] = highScores[j-1];
                 }
                 highScores[i] = score;
@@ -213,5 +223,19 @@ public class GameStart extends Activity {
             }
         }
     }
+    private void assignScores(){
+        score1.setText(String.valueOf(highScores[0]));
+        score2.setText(String.valueOf(highScores[1]));
+        score3.setText(String.valueOf(highScores[2]));
+        score4.setText(String.valueOf(highScores[3]));
+    }
+    public void showScores(View v){
+        if(scoresTable.getVisibility() == View.VISIBLE)
+            scoresTable.setVisibility(View.INVISIBLE);
+        else
+            scoresTable.setVisibility(View.VISIBLE);
+    }
+
+
 
 }
