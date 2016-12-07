@@ -11,6 +11,7 @@ public class Splash extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        // Setting a sleep delay and switch the activity to menu
         Thread timer = new Thread(){
             public void run(){
                 try{

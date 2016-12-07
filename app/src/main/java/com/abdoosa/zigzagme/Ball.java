@@ -13,18 +13,23 @@ public class Ball extends ImageView {
     int ballPxNum, pixelCollideNum;
     public Ball(Context context) {
         super(context);
+        // Setting the image resource for the ball
         this.setImageResource(R.drawable.ball);
+        // Getting the bit maps for the ball and the top pillar
         bm1 = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
         bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.top);
+        // Getting the number of pixels in the ball bitmap and assigning it to a variable
         ballPxNum = getBallPxNum();
     }
 
 
+    // Setting the first position for the ball
     public void setFirstBallPos(float x, float y){
         this.setX(x+47);
         this.setY(y+27);
     }
 
+    // Getting the collision bounds of two collided rectangles
     public Rect getCollisionBounds(Rect rect1, Rect rect2) {
         int left =  Math.max(rect1.left, rect2.left);
         int top =  Math.max(rect1.top, rect2.top);
@@ -33,6 +38,7 @@ public class Ball extends ImageView {
         return new Rect(left, top, right, bottom);
     }
 
+    // Getting the number of pixels in the ball bitmap
     public int getBallPxNum(){
         int count=0;
         for(int i=0; i<bm1.getWidth(); i++){
@@ -44,6 +50,7 @@ public class Ball extends ImageView {
         return count;
     }
 
+    // Getting the whether the ball and the topPillar or not by checking every pixel in the two bitmaps
     public boolean isCollisionDetected(int xP, int yP) {
         int xB = (int) this.getX();
         int yB = (int) this.getY();
@@ -68,6 +75,7 @@ public class Ball extends ImageView {
         return false;
     }
 
+    // Getting whether a pixel is filled or is transparent
     public boolean isFilled(int pixel) {
         return pixel != Color.TRANSPARENT;
     }
