@@ -10,6 +10,17 @@
 
 
     <Button
+        android:id="@+id/muteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MUTE"
+        android:onClick="mute"
+        android:textSize="24sp"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <Button
         android:id="@+id/replay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,20 +28,9 @@
         android:layout_centerHorizontal="true"
         android:text="Replay"
         android:onClick="replay"
+        android:layout_above="@id/muteBtn"
         android:textSize="24sp"
         style="@style/Widget.AppCompat.Button.Borderless" />
-
-    <Button
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:id="@+id/highScores"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="High Scores"
-        android:layout_below="@+id/replay"
-        android:textSize="24sp"
-        android:onClick="showScores"
-        android:layout_alignLeft="@+id/scoreLabel"
-        android:layout_alignStart="@+id/scoreLabel" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,103 +55,188 @@
         android:textColor="@android:color/background_light">
     </TextView>
 
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:id="@+id/difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DIFFICULTY"
+        android:textSize="24sp"
+        android:onClick="displayDifficulties"
+        android:layout_below="@+id/muteBtn"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:id="@+id/highScores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="High Scores"
+        android:textSize="24sp"
+        android:onClick="showScores"
+        android:layout_below="@+id/difficulty"
+        android:layout_alignRight="@+id/scoreLabel"
+        android:layout_alignEnd="@+id/scoreLabel" />
+
+    <TableLayout
+        android:id="@+id/difficultyTable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_below="@+id/highScores"
+        android:layout_centerHorizontal="true">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:text="Easy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/level1Btn"
+                android:minHeight="20dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:onClick="setLevel1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:text="Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:minHeight="20dp"
+                android:id="@+id/level2Btn"
+                android:onClick="setLevel2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:text="Hard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/level3Btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:minHeight="20dp"
+                android:elegantTextHeight="false"
+                android:onClick="setLevel3" />
+        </TableRow>
+
+    </TableLayout>
+
     <TableLayout
         android:id="@+id/scoresTable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/highScores"
-        android:layout_centerHorizontal="true"
         android:visibility="invisible"
-        >
+        android:layout_centerHorizontal="true">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="1 |"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/scoreLabel1"
-                android:textAlignment="textStart"
                 android:textSize="24sp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="3" />
 
             <TextView
                 android:text="score1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/score1"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_weight="1" />
 
         </TableRow>
-
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="2 |"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/scoreLabel2"
-                android:textAlignment="textStart"
                 android:textSize="24sp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="3" />
 
             <TextView
                 android:text="score2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/score2"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_weight="1" />
 
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="3 |"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/scoreLabel3"
-                android:textAlignment="textStart"
                 android:textSize="24sp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="3"
+                android:layout_width="match_parent" />
 
             <TextView
                 android:text="score3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:id="@+id/score3"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_weight="1" />
 
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="4 |"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/scoreLabel4"
-                android:textAlignment="textStart"
                 android:textSize="24sp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_weight="3" />
 
             <TextView
                 android:text="score4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/score4"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_weight="1" />
 
         </TableRow>
 
     </TableLayout>
+
 
     <!--<TextView-->
         <!--android:text="score5"-->

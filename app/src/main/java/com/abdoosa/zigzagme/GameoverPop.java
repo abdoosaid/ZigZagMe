@@ -8,16 +8,13 @@ import android.widget.Button;
 import android.widget.TableLayout;
 
 public class GameoverPop extends Activity{
-    Button showHighScores;
-    TableLayout scoresTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Setting the layout for the game over pop screen
         setContentView(R.layout.gameoverpop);
-        showHighScores = (Button) findViewById(R.id.highScores);
-        scoresTable = (TableLayout) findViewById(R.id.scoresTable);
+
     }
 
 }
