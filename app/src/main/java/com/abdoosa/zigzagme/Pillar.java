@@ -5,12 +5,12 @@ import android.widget.ImageView;
 
 
 public class Pillar extends ImageView {
+    int xOffset, yOffset;
+
+
     // Getting the width and the height of the screen
     int devWidth = GameStart.devWidth;
     int devHeight = GameStart.devHeight;
-    // Setting x and y offsets
-    int xOffset = 53;
-    int yOffset = 38;
 
     public Pillar(Context context) {
         super(context);
@@ -26,16 +26,19 @@ public class Pillar extends ImageView {
 
     // Generating the new x position for the pillar
     public void setNewPillarX(float x) {
+        // Setting x and y offsets
+        xOffset = Top.getPillarDemiWidth();
+        yOffset = Top.getPillarDemiHeight();
 
         int random = (int) (Math.random() * 2);
 
         if (random == 1) {
-            if (x > devWidth - 250)
+            if (x > devWidth - Top.getPillarDemiWidth()*4)
                 this.setX(x - xOffset);
             else
                 this.setX(x + xOffset);
         } else {
-            if (x < 60)
+            if (x < Top.getPillarDemiWidth()*4)
                 this.setX(x + xOffset);
             else
                 this.setX(x - xOffset);
@@ -44,7 +47,7 @@ public class Pillar extends ImageView {
 
     // Checking whether the pillar is in the bottom of the screen
     public boolean isLow(){
-        return this.getY() > 900f;
+        return this.getY() > devHeight*0.9;
     }
 
     // Generating the new y position for the pillar
