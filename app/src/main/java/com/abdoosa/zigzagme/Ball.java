@@ -9,7 +9,7 @@ import android.widget.ImageView;
 
 
 public class Ball extends ImageView {
-    Bitmap bm1, bm2;
+    static Bitmap bm1;
     int ballPxNum, pixelCollideNum;
     public Ball(Context context) {
         super(context);
@@ -17,17 +17,12 @@ public class Ball extends ImageView {
         this.setImageResource(R.drawable.ball);
         // Getting the bit maps for the ball and the top pillar
         bm1 = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-        bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.top);
+//        bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.top);
         // Getting the number of pixels in the ball bitmap and assigning it to a variable
         ballPxNum = getBallPxNum();
     }
 
 
-    // Setting the first position for the ball
-    public void setFirstBallPos(float x, float y){
-        this.setX(x+47);
-        this.setY(y+27);
-    }
 
     // Getting the collision bounds of two collided rectangles
     public Rect getCollisionBounds(Rect rect1, Rect rect2) {
@@ -51,19 +46,19 @@ public class Ball extends ImageView {
     }
 
     // Getting the whether the ball and the topPillar or not by checking every pixel in the two bitmaps
-    public boolean isCollisionDetected(int xP, int yP) {
+    public boolean isCollisionDetected(int xP, int yP, Bitmap bm) {
         int xB = (int) this.getX();
         int yB = (int) this.getY();
         pixelCollideNum = 0;
         Rect bounds1 = new Rect(xB, yB, xB+bm1.getWidth(), yB+bm1.getHeight());
-        Rect bounds2 = new Rect(xP, yP, xP+bm2.getWidth(), yP+bm2.getHeight());
+        Rect bounds2 = new Rect(xP, yP, xP+bm.getWidth(), yP+bm.getHeight());
 
         if (Rect.intersects(bounds1, bounds2)) {
             Rect collisionBounds = getCollisionBounds(bounds1, bounds2);
             for (int i = collisionBounds.left; i < collisionBounds.right; i++) {
                 for (int j = collisionBounds.top; j < collisionBounds.bottom; j++) {
                     int bitmap1Pixel = bm1.getPixel(i-xB, j-yB);
-                    int bitmap2Pixel = bm2.getPixel(i-xP, j-yP);
+                    int bitmap2Pixel = bm.getPixel(i-xP, j-yP);
                     if (isFilled(bitmap1Pixel) && isFilled(bitmap2Pixel)) {
                         pixelCollideNum++;
                     }
