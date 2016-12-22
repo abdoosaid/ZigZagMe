@@ -14,7 +14,6 @@ public class GameoverPop extends Activity{
         super.onCreate(savedInstanceState);
         // Setting the layout for the game over pop screen
         setContentView(R.layout.gameoverpop);
-
     }
 
 }
