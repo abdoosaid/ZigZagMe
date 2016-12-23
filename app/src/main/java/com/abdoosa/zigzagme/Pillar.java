@@ -57,7 +57,7 @@ public class Pillar extends ImageView {
 
     // Checking whether the pillar is in the bottom of the screen
     public boolean isInBottom(){
-        return  this.getY() > devHeight*0.6;
+        return  this.getY() > devHeight*0.5;
     }
 
 

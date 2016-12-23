@@ -37,12 +37,6 @@
         </activity>
 
 
-        <activity
-            android:name=".Menu"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-
-        </activity>
-
         <activity android:name=".GameoverPop" />
 
         <activity

@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -21,7 +20,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -107,7 +105,7 @@ public class Splash extends Activity {
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        goToMenu();
+                                        goToPlay();
                                     }
                                 }, 2000);
                             }
@@ -138,8 +136,8 @@ public class Splash extends Activity {
         email = (TextView) findViewById(R.id.email);
     }
 
-    private void goToMenu(){
-        startActivity(new Intent(this, Menu.class));
+    private void goToPlay(){
+        startActivity(new Intent(this, GameStart.class));
     }
 
     private void setProfileToView(JSONObject jsonObject) {

@@ -33,7 +33,6 @@ public class ToSplashAct extends Activity{
 
         }
 
-
         startActivity(new Intent(getApplication(), Splash.class));
 
         FacebookSdk.sdkInitialize(getApplicationContext());
