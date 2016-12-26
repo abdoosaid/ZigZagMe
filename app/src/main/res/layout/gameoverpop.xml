@@ -27,7 +27,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:text="Replay"
-        android:onClick="replay"
+        android:onClick="re
+        play"
         android:layout_above="@id/muteBtn"
         android:textSize="24sp"
         style="@style/Widget.AppCompat.Button.Borderless" />
@@ -38,6 +39,8 @@
         android:id="@+id/scoreLabel"
         android:text="Your Score"
         android:textSize="36sp"
+        android:clickable="true"
+        android:onClick="movingToSetting"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
