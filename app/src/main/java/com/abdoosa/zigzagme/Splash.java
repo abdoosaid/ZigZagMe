@@ -1,14 +1,17 @@
 package com.abdoosa.zigzagme;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
-import android.transition.Explode;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,15 +21,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -35,25 +35,14 @@ import com.facebook.login.widget.ProfilePictureView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static android.R.attr.data;
-import static java.security.AccessController.getContext;
-
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
 public class Splash extends Activity {
 
-    private JSONObject response, profile_pic_data, profile_pic_url;
     String[] jsonObjects = new String[3];
-    String[] data = {"email", "name", "id"};
+    String[] data = {"name", "id"};
     boolean isLogged;
+    TextView textView;
 
     private LoginButton loginButton;
-    private ProfilePictureView picId;
-    private TextView email, username;
     private CallbackManager callbackManager;
 
     @Override
@@ -67,7 +56,7 @@ public class Splash extends Activity {
         onViewCreated();
 
         callbackManager = CallbackManager.Factory.create();
-        String[] permissions = {"public_profile", "user_friends", "email"};
+        String[] permissions = {"public_profile", "user_friends"};
         loginButton.setReadPermissions(permissions);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
@@ -80,7 +69,7 @@ public class Splash extends Activity {
                             public void onCompleted(JSONObject object, GraphResponse response) {
                                 Log.v("Main", response.toString());
                                 try {
-                                    jsonObjects = new String[]{object.getString("email"), object.getString("name"), object.getString("id")};
+                                    jsonObjects = new String[]{object.getString("name"), object.getString("id")};
                                     SharedPreferences keyValues = getApplicationContext().getSharedPreferences("jsonObjects", 0);
                                     SharedPreferences.Editor keyValuesEditor = keyValues.edit();
                                     for (int i = 0; i<data.length; i++)
@@ -105,7 +94,7 @@ public class Splash extends Activity {
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender, birthday");
+                parameters.putString("fields", "id,name");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -133,7 +122,7 @@ public class Splash extends Activity {
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     if (isLoggedIn()) {
-
+                        Log.e("logged", "lolo");
                         loginButton.setVisibility(View.GONE);
                         SharedPreferences keyValues = getApplicationContext().getSharedPreferences("jsonObjects", 0);
                         for (int i = 0; i < data.length; i++)
@@ -150,26 +139,43 @@ public class Splash extends Activity {
             });
         }
 
+        textView = (TextView) findViewById(R.id.terms);
+        textView.setTextColor(Color.BLACK);
+        textView.setPaintFlags(textView.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+    }
 
+    public void displayTerms(View view){
+        SpannableString ss = new SpannableString("By signing with Facebook, you agree on Terms of Use");
+        ClickableSpan clickableSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                //startActivity(new Intent(MyActivity.this, NextActivity.class));
+                Log.e("displayTerms", "lol");
+                Toast.makeText(getApplicationContext(), "looool", Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                super.updateDrawState(ds);
+                ds.setUnderlineText(false);
+            }
+        };
+        ss.setSpan(clickableSpan, 39, 51, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
+        textView.setText(ss);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setHighlightColor(Color.RED);
     }
 
     private void onViewCreated() {
         if (loginButton == null)
             loginButton = (LoginButton) findViewById(R.id.login_button);
-        if (picId == null)
-            picId = (ProfilePictureView) findViewById(R.id.picId);
-        if (username == null)
-            username = (TextView) findViewById(R.id.username);
-        if (email == null)
-            email = (TextView) findViewById(R.id.email);
+
     }
 
     public boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
     }
-
 
     private void goToMenu(String[] data) {
         Bundle bundle = new Bundle();
@@ -178,38 +184,6 @@ public class Splash extends Activity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
-
-    private void setProfileToView(JSONObject jsonObject) {
-        try {
-            email.setText(jsonObject.getString("email"));
-            username.setText(jsonObject.getString("name"));
-
-            picId.setPresetSize(ProfilePictureView.NORMAL);
-            picId.setProfileId(jsonObject.getString("id"));
-            //infoLayout.setVisibility(View.VISIBLE);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-//    public void setUserProfile(String jsondata) {
-//        try {
-//            response = new JSONObject(jsondata);
-//            email.setText(response.get("email").toString());
-//            username.setText(response.get("name").toString());
-//            if (response.has("picture")) {
-//                profile_pic_data = new JSONObject(response.get("picture").toString());
-//                Log.e("7mar", "lol");
-//                profile_pic_url = new JSONObject(profile_pic_data.getString("data"));
-//                Picasso.with(this).load(profile_pic_url.getString("url"))
-//                        .into(picId);
-//            }
-//            else
-//                Log.e("else", "lol");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     @Override
     public void onResume() {

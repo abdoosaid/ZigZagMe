@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.ProfilePictureView;
-import com.facebook.share.widget.ShareButton;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,9 +23,8 @@ import java.io.IOException;
 
 
 public class Setting extends Activity {
-    TextView email;
     TextView username;
-    TextView scoreSetting;
+    TextView scoreSetting, myScore;
 
     File imagePath;
     ImageView shareButton;
@@ -41,17 +40,18 @@ public class Setting extends Activity {
 
 
         ProfilePictureView picId = (ProfilePictureView) findViewById(R.id.profile_pic);
-        email = (TextView) findViewById(R.id.e_mail);
         username = (TextView) findViewById(R.id.name);
         scoreSetting = (TextView) findViewById(R.id.score_in_setting);
+        myScore = (TextView) findViewById(R.id.my_score);
+        myScore.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
+        scoreSetting.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
 
         Bundle bundle = getIntent().getExtras();
         String[] data = bundle.getStringArray("key");
 
-        email.setText(data != null ? data[0] : null);
-        username.setText(data != null ? data[1] : null);
+        username.setText(data != null ? data[0] : null);
         picId.setPresetSize(ProfilePictureView.NORMAL);
-        picId.setProfileId(data != null ? data[2] : null);
+        picId.setProfileId(data != null ? data[1] : null);
 
         SharedPreferences keyValues = getApplicationContext().getSharedPreferences("counter", 0);
         scoreSetting.setText("<" + keyValues.getInt("counter", 0) + "/>");

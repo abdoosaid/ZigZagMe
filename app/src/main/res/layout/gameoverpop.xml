@@ -27,8 +27,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:text="Replay"
-        android:onClick="re
-        play"
+        android:onClick="replay"
         android:layout_above="@id/muteBtn"
         android:textSize="24sp"
         style="@style/Widget.AppCompat.Button.Borderless" />

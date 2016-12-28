@@ -26,15 +26,15 @@ public class GameoverPop extends Activity {
         final Intent intent = new Intent(this, Setting.class);
 
 
-        scoreLabel = (TextView) findViewById(R.id.scoreLabel);
-        scoreLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("gamePop", "loli");
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        });
+//        scoreLabel = (TextView) findViewById(R.id.scoreLabel);
+//        scoreLabel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.e("gamePop", "loli");
+//                intent.putExtras(bundle);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 

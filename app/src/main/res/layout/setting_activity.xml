@@ -41,22 +41,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="60dp"
                     android:fontFamily="sans-serif"
                     android:text="Hello"
                     android:textAlignment="viewStart"
-                    android:textSize="16sp"
-                    android:textStyle="normal|bold"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/e_mail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="sans-serif"
-                    android:text="Hello"
-                    android:textSize="14sp"
+                    android:textSize="20sp"
                     android:textStyle="normal|bold"
                     android:typeface="serif" />
 
@@ -68,66 +57,70 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/score_display"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="My Score In ZigZagMe:"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/score_in_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="120dp"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="40sp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/score_display"
+        android:layout_below="@+id/nav_header_container"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="@color/com_facebook_button_login_silver_background_color_pressed">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_centerHorizontal="true"
-            android:text="Wanna Let The World know?!"
-            android:textAlignment="center"
-            android:textColor="@android:color/black"
-            android:textSize="25sp" />
+        <RelativeLayout
+                android:id="@+id/score_display"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-        <ImageView
-            android:id="@+id/share_btn"
-            android:src="@drawable/share_btn"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="fitXY"
-            android:layout_marginBottom="24dp"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="Share On Facebook"
-            android:layout_alignParentBottom="true" />
+                <TextView
+                    android:id="@+id/my_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="My Score In ZigZagMe:"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="30sp" />
 
+                <TextView
+                    android:id="@+id/score_in_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="120dp"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/black"
+                    android:textSize="40sp" />
+
+            </RelativeLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/score_display"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
+
+
+                <ImageView
+                    android:id="@+id/share_btn"
+                    android:src="@drawable/share"
+                    android:layout_width="170dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:layout_marginBottom="24dp"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="Share On Facebook"
+                    android:layout_alignParentBottom="true" />
+
+
+            </RelativeLayout>
 
     </RelativeLayout>
+
+
+
 
 </RelativeLayout>
