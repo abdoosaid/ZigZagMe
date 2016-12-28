@@ -65,7 +65,7 @@ public class Ball extends ImageView {
                 }
             }
         }
-        if(pixelCollideNum >= ballPxNum-160)
+        if(pixelCollideNum >= ballPxNum/2)
             return true;
         return false;
     }
