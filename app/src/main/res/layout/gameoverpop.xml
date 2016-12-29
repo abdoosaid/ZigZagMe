@@ -36,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scoreLabel"
-        android:text="Your Score"
+        android:text="My Score"
         android:textSize="36sp"
         android:clickable="true"
         android:onClick="movingToSetting"
@@ -78,8 +78,8 @@
         android:textSize="24sp"
         android:onClick="showScores"
         android:layout_below="@+id/difficulty"
-        android:layout_alignRight="@+id/scoreLabel"
-        android:layout_alignEnd="@+id/scoreLabel" />
+        android:layout_centerHorizontal="true"
+        />
 
     <TableLayout
         android:id="@+id/difficultyTable"
@@ -97,10 +97,12 @@
                 android:text="Easy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
                 android:id="@+id/level1Btn"
                 android:minHeight="20dp"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:onClick="setLevel1" />
+                android:onClick="setButtonState" />
         </TableRow>
 
         <TableRow
@@ -114,7 +116,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:minHeight="20dp"
                 android:id="@+id/level2Btn"
-                android:onClick="setLevel2" />
+                android:onClick="setButtonState" />
         </TableRow>
 
         <TableRow
@@ -129,7 +131,7 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:minHeight="20dp"
                 android:elegantTextHeight="false"
-                android:onClick="setLevel3" />
+                android:onClick="setButtonState" />
         </TableRow>
 
     </TableLayout>

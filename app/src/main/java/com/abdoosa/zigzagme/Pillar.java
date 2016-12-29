@@ -21,7 +21,7 @@ public class Pillar extends ImageView {
     // Setting the first pillar to the appropriate position
     public void setFirstPillar(){
         this.setX((float) (devWidth / 2.3));
-        this.setY(devHeight * 2 / 3);
+        this.setY((float) (devHeight*0.4));
     }
 
     // Generating the new x position for the pillar
@@ -47,7 +47,7 @@ public class Pillar extends ImageView {
 
     // Checking whether the pillar is in the bottom of the screen
     public boolean isLow(){
-        return this.getY() > devHeight*0.9;
+        return this.getY() > devHeight;
     }
 
     // Generating the new y position for the pillar
@@ -57,7 +57,7 @@ public class Pillar extends ImageView {
 
     // Checking whether the pillar is in the bottom of the screen
     public boolean isInBottom(){
-        return  this.getY() > devHeight*0.5;
+        return  this.getY() > devHeight*0.3;
     }
 
 
