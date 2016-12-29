@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:text="Replay"
+        android:text="Play"
         android:onClick="replay"
         android:layout_above="@id/muteBtn"
         android:textSize="24sp"

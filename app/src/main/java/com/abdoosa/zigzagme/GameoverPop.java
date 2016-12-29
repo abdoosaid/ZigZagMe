@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 public class GameoverPop extends Activity {
 
-    TextView scoreLabel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,17 +22,6 @@ public class GameoverPop extends Activity {
         String[] data = bundle.getStringArray("key");
         bundle.putStringArray("key", data);
         final Intent intent = new Intent(this, Setting.class);
-
-
-//        scoreLabel = (TextView) findViewById(R.id.scoreLabel);
-//        scoreLabel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.e("gamePop", "loli");
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        });
 
     }
 
