@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:layout_weight="2">
 
             <TextView
@@ -50,7 +50,7 @@
                 android:textSize="30sp"
                 android:textStyle="normal|bold"
                 android:typeface="serif"
-                android:textColor="#ff212121" />
+                android:textColor="#FFFFFFFF" />
 
         </LinearLayout>
     </LinearLayout>
@@ -104,25 +104,26 @@
 
 
             <ImageView
-                android:id="@+id/share_btn"
-                android:layout_width="170dp"
-                android:layout_height="80dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="24dp"
-                android:contentDescription="Share On Facebook"
-                android:scaleType="fitXY"
-                android:src="@drawable/share" />
-
-            <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_above="@+id/share_btn"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:src="@mipmap/ic_launcher"
                 android:contentDescription="logo" />
+
+            <ImageView
+                android:id="@+id/share_btn"
+                android:layout_width="170dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="21dp"
+                android:contentDescription="Share On Facebook"
+                android:scaleType="fitXY"
+                android:src="@drawable/share"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true" />
 
 
         </RelativeLayout>
@@ -131,4 +132,3 @@
 
 
 </RelativeLayout>
-

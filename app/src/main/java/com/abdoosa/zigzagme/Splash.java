@@ -38,7 +38,6 @@ public class Splash extends Activity {
 
     String[] jsonObjects = new String[3];
     String[] data = {"name", "id"};
-    boolean isLogged;
     TextView textView;
 
     private LoginButton loginButton;
@@ -57,6 +56,44 @@ public class Splash extends Activity {
         callbackManager = CallbackManager.Factory.create();
         String[] permissions = {"public_profile", "user_friends"};
         loginButton.setReadPermissions(permissions);
+
+        if (isLoggedIn())
+            loginButton.setVisibility(View.GONE);
+
+        final ImageView logo = (ImageView) findViewById(R.id.logo);
+        final Animation animation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.scale);
+
+
+        if (logo != null) {
+            logo.setAnimation(animation);
+            animation.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (isLoggedIn()) {
+                        loginButton.setVisibility(View.GONE);
+
+                        // getting the stored data
+                        SharedPreferences keyValues = getApplicationContext().getSharedPreferences("jsonObjects", 0);
+                        for (int i = 0; i < data.length; i++)
+                            jsonObjects[i] = keyValues.getString(data[i], "Data Not Found");
+
+                        // moving to GameStart class
+                        goToGameStart(jsonObjects);
+
+                    } else
+                        loginButton.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        }
+
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
             @Override
@@ -66,28 +103,25 @@ public class Splash extends Activity {
 
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("Main", response.toString());
+                                // storing data
                                 try {
                                     jsonObjects = new String[]{object.getString("name"), object.getString("id")};
+
                                     SharedPreferences keyValues = getApplicationContext().getSharedPreferences("jsonObjects", 0);
                                     SharedPreferences.Editor keyValuesEditor = keyValues.edit();
-                                    for (int i = 0; i<data.length; i++)
+                                    for (int i = 0; i < data.length; i++)
                                         keyValuesEditor.putString(data[i], jsonObjects[i]);
                                     keyValuesEditor.apply();
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
-                                //setProfileToView(object);
-                                //setUserProfile(object.toString());
                                 loginButton.setVisibility(View.GONE);
-                                isLogged = true;
-                                //picId.setVisibility(View.VISIBLE);
                                 Handler handler = new Handler();
                                 handler.postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        goToMenu(jsonObjects);
+                                        goToGameStart(jsonObjects);
                                     }
                                 }, 2000);
                             }
@@ -109,41 +143,12 @@ public class Splash extends Activity {
             }
         });
 
-        final ImageView imageView = (ImageView) findViewById(R.id.logo);
-        final Animation animation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
-        if (imageView != null) {
-            imageView.setAnimation(animation);
-            animation.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    if (isLoggedIn()) {
-                        Log.e("logged", "lolo");
-                        loginButton.setVisibility(View.GONE);
-                        SharedPreferences keyValues = getApplicationContext().getSharedPreferences("jsonObjects", 0);
-                        for (int i = 0; i < data.length; i++)
-                            jsonObjects[i] = keyValues.getString(data[i], "Data Not Found");
-                        goToMenu(jsonObjects);
-                    }
-
-                    loginButton.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
-        }
-
         textView = (TextView) findViewById(R.id.terms);
         textView.setTextColor(Color.BLACK);
-        textView.setPaintFlags(textView.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
+        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
-    public void displayTerms(View view){
+    public void displayTerms(View view) {
         SpannableString ss = new SpannableString("By signing with Facebook, you agree on Terms of Use");
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
@@ -152,6 +157,7 @@ public class Splash extends Activity {
                 Log.e("displayTerms", "lol");
                 Toast.makeText(getApplicationContext(), "looool", Toast.LENGTH_LONG).show();
             }
+
             @Override
             public void updateDrawState(TextPaint ds) {
                 super.updateDrawState(ds);
@@ -176,7 +182,7 @@ public class Splash extends Activity {
         return accessToken != null;
     }
 
-    private void goToMenu(String[] data) {
+    private void goToGameStart(String[] data) {
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this, GameStart.class);
         bundle.putStringArray("key", data);
