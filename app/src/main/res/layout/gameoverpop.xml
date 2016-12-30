@@ -159,7 +159,7 @@
                 android:layout_weight="3" />
 
             <TextView
-                android:text="score1"
+                android:text="0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/score1"
@@ -182,7 +182,7 @@
                 android:layout_weight="3" />
 
             <TextView
-                android:text="score2"
+                android:text="0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/score2"
@@ -206,7 +206,7 @@
                 android:layout_width="match_parent" />
 
             <TextView
-                android:text="score3"
+                android:text="0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/score3"
@@ -230,7 +230,7 @@
                 android:layout_weight="3" />
 
             <TextView
-                android:text="score4"
+                android:text="0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/score4"

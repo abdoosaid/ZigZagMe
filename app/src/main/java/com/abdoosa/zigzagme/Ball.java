@@ -17,12 +17,10 @@ public class Ball extends ImageView {
         this.setImageResource(R.drawable.ball);
         // Getting the bit maps for the ball and the top pillar
         bm1 = BitmapFactory.decodeResource(getResources(), R.drawable.ball);
-//        bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.top);
+        // bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.top);
         // Getting the number of pixels in the ball bitmap and assigning it to a variable
         ballPxNum = getBallPxNum();
     }
-
-
 
     // Getting the collision bounds of two collided rectangles
     public Rect getCollisionBounds(Rect rect1, Rect rect2) {
@@ -45,8 +43,8 @@ public class Ball extends ImageView {
         return count;
     }
 
-    // Getting the whether the ball and the topPillar or not by checking every pixel in the two bitmaps
-    public boolean isCollisionDetected(int xP, int yP, Bitmap bm) {
+    // Getting the whether the ball is in the path or not by checking every pixel in the two bitmaps(ball and pillar-giantPillar)
+    public boolean isInThePath(int xP, int yP, Bitmap bm) {
         int xB = (int) this.getX();
         int yB = (int) this.getY();
         pixelCollideNum = 0;

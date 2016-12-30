@@ -12,6 +12,7 @@ public class Top extends Pillar {
         super(context);
         // Setting topPillar image ressource to R.drawable.top
         this.setImageResource(R.drawable.top);
+        // Generating the bitmap of topPillar
         top = BitmapFactory.decodeResource(getResources(), R.drawable.top);
     }
 

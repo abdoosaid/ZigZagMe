@@ -9,7 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:clickable="true"
-    tools:context="com.abdoosa.zigzagme.GameStart">
+    tools:context="com.abdoosa.zigzagme.GameStart"
+    android:background="@color/gameLayoutColor">
 
 
     <TextView
