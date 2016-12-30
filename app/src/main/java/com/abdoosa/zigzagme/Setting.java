@@ -24,8 +24,8 @@ import java.io.IOException;
 
 public class Setting extends Activity {
     TextView username;
-    TextView scoreSetting, myScore;
-
+    TextView scoreSetting, myScore, name;
+    ProfilePictureView picId;
     File imagePath;
     ImageView shareButton;
 
@@ -36,16 +36,15 @@ public class Setting extends Activity {
         AppEventsLogger.activateApp(getApplication());
 
         setContentView(R.layout.setting_activity);
-        Log.e("lol", "lil");
+        // initiating the views
+        initiateView();
 
-
-        ProfilePictureView picId = (ProfilePictureView) findViewById(R.id.profile_pic);
-        username = (TextView) findViewById(R.id.name);
-        scoreSetting = (TextView) findViewById(R.id.score_in_setting);
-        myScore = (TextView) findViewById(R.id.my_score);
+        // setting the fonts
         myScore.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
         scoreSetting.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
+        username.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
 
+        // getting the array #data passed from the previous activity
         Bundle bundle = getIntent().getExtras();
         String[] data = bundle.getStringArray("key");
 
@@ -53,9 +52,11 @@ public class Setting extends Activity {
         picId.setPresetSize(ProfilePictureView.NORMAL);
         picId.setProfileId(data != null ? data[1] : null);
 
+        // this is to store count in phones memory
         SharedPreferences keyValues = getApplicationContext().getSharedPreferences("counter", 0);
         scoreSetting.setText("<" + keyValues.getInt("counter", 0) + "/>");
 
+        // taking screenshot and share it on social media
         shareButton = (ImageView) findViewById(R.id.share_btn);
         shareButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -67,12 +68,22 @@ public class Setting extends Activity {
 
     }
 
+    // method to initiate views
+    public void initiateView(){
+        picId = (ProfilePictureView) findViewById(R.id.profile_pic);
+        username = (TextView) findViewById(R.id.name);
+        scoreSetting = (TextView) findViewById(R.id.score_in_setting);
+        myScore = (TextView) findViewById(R.id.my_score);
+    }
+
+    // take a screenshot
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
         rootView.setDrawingCacheEnabled(true);
         return rootView.getDrawingCache();
     }
 
+    //then save it in phones memory
     public void saveBitmap(Bitmap bitmap) {
         imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
         FileOutputStream fos;
@@ -86,11 +97,12 @@ public class Setting extends Activity {
         }
     }
 
+    // then share it on social media
     private void shareIt() {
         Uri uri = Uri.fromFile(imagePath);
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("image/*");
-        String shareBody = "My Highest Score In ZigZagMe...Oleyy";
+        String shareBody = "Oleyy...My Highest Score In ZigZagMe";
         sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My ZigZagMe Score");
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);

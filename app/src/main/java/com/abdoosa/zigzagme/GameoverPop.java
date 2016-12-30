@@ -21,7 +21,6 @@ public class GameoverPop extends Activity {
         final Bundle bundle = getIntent().getExtras();
         String[] data = bundle.getStringArray("key");
         bundle.putStringArray("key", data);
-        final Intent intent = new Intent(this, Setting.class);
 
     }
 
