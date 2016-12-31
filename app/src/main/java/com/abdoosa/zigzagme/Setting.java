@@ -23,8 +23,8 @@ import java.io.IOException;
 
 
 public class Setting extends Activity {
-    TextView username;
-    TextView scoreSetting, myScore, name;
+
+    TextView username, scoreSetting, myScore;
     ProfilePictureView picId;
     File imagePath;
     ImageView shareButton;
