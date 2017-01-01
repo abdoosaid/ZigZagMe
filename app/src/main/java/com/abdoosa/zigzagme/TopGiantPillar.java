@@ -14,12 +14,4 @@ public class TopGiantPillar extends Pillar {
 
         topGiantPillar = BitmapFactory.decodeResource(getResources(), R.drawable.giantpillar);
     }
-
-    public int getGiantPillarWidth() {
-        return topGiantPillar.getWidth();
-    }
-
-    public int getGiantPillarHeight() {
-        return topGiantPillar.getHeight();
-    }
 }
