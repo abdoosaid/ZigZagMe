@@ -18,7 +18,7 @@ public class Pillar extends ImageView {
         this.setImageResource(R.drawable.pillar);
     }
 
-    // Setting the first pillar to the appropriate position
+    // DisplayScoreAndShare the first pillar to the appropriate position
     public void setFirstPillar(){
         this.setX((float) (devWidth / 2.3));
         this.setY((float) (devHeight*0.4));
@@ -26,7 +26,7 @@ public class Pillar extends ImageView {
 
     // Generating the new x position for the pillar
     public void setNewPillarX(float x) {
-        // Setting x and y offsets
+        // DisplayScoreAndShare x and y offsets
         xOffset = Top.getPillarDemiWidth();
         yOffset = Top.getPillarDemiHeight();
 

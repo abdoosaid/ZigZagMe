@@ -1,6 +1,8 @@
 package com.abdoosa.zigzagme;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -9,20 +11,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.ProfilePictureView;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 
-public class Setting extends Activity {
+public class DisplayScoreAndShare extends Activity {
 
     TextView username, scoreSetting, myScore;
     ProfilePictureView picId;
@@ -32,6 +34,7 @@ public class Setting extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // initializing Facebook SDK
         FacebookSdk.sdkInitialize(this);
         AppEventsLogger.activateApp(getApplication());
 
@@ -39,10 +42,10 @@ public class Setting extends Activity {
         // initiating the views
         initiateView();
 
-        // setting the fonts
-        myScore.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
-        scoreSetting.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
-        username.setTypeface(Typeface.createFromAsset(getAssets(),  "fonts/Hanken-Book.ttf"));
+        // setting the fonts to the textView
+        myScore.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Hanken-Book.ttf"));
+        scoreSetting.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Hanken-Book.ttf"));
+        username.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/Hanken-Book.ttf"));
 
         // getting the array #data passed from the previous activity
         Bundle bundle = getIntent().getExtras();
@@ -66,10 +69,16 @@ public class Setting extends Activity {
             }
         });
 
+        username.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showChangeLangDialog();
+            }
+        });
     }
 
     // method to initiate views
-    public void initiateView(){
+    public void initiateView() {
         picId = (ProfilePictureView) findViewById(R.id.profile_pic);
         username = (TextView) findViewById(R.id.name);
         scoreSetting = (TextView) findViewById(R.id.score_in_setting);
@@ -108,5 +117,30 @@ public class Setting extends Activity {
         sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
 
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
+
+    public void showChangeLangDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.editname);
+
+        dialogBuilder.setTitle("Username");
+        dialogBuilder.setMessage("Enter Your Name");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if (edt.getText().toString().length() != 0)
+                    username.setText(edt.getText().toString());
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
     }
 }

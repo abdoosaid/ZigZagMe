@@ -9,7 +9,7 @@ public class TopGiantPillar extends Pillar {
 
     public TopGiantPillar(Context context) {
         super(context);
-        // Setting topPillar image ressource to R.drawable.top
+        // DisplayScoreAndShare topPillar image ressource to R.drawable.top
         this.setImageResource(R.drawable.topgiant);
 
         topGiantPillar = BitmapFactory.decodeResource(getResources(), R.drawable.giantpillar);
