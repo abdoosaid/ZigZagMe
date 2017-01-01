@@ -13,7 +13,7 @@ public class Ball extends ImageView {
     int ballPxNum, pixelCollideNum;
     public Ball(Context context) {
         super(context);
-        // Setting the image resource for the ball
+        // DisplayScoreAndShare the image resource for the ball
         this.setImageResource(R.drawable.ball);
         // Getting the bit maps for the ball and the top pillar
         bm1 = BitmapFactory.decodeResource(getResources(), R.drawable.ball);

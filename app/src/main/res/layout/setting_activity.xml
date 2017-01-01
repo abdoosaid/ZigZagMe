@@ -53,6 +53,7 @@
                 android:textColor="#ff212121" />
 
         </LinearLayout>
+
     </LinearLayout>
 
     <RelativeLayout

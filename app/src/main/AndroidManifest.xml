@@ -41,7 +41,7 @@
 
 
         <activity android:name=".GameOverPop" />
-        <activity android:name=".Setting" />
+        <activity android:name=".DisplayScoreAndShare" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

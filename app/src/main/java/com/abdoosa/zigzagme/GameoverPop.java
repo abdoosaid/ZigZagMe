@@ -10,18 +10,13 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-public class GameoverPop extends Activity {
+public class GameOverPop extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Setting the layout for the game over pop screen
+        // DisplayScoreAndShare the layout for the game over pop screen
         setContentView(R.layout.gameoverpop);
-
-        final Bundle bundle = getIntent().getExtras();
-        String[] data = bundle.getStringArray("key");
-        bundle.putStringArray("key", data);
-
-    }
+            }
 
 }

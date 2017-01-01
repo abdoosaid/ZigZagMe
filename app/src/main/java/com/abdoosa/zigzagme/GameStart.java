@@ -65,16 +65,18 @@ public class GameStart extends Activity {
 
     @Override
     public void onBackPressed() {
-        // to prevent the next activity from getting back to Splash class
-        moveTaskToBack(true);
+        if (popupWindow.isShowing())
+            moveTaskToBack(true);
+        else
+            popupWindow.showAtLocation(game_layout, Gravity.CENTER, 0, 0);
     }
 
-    public void movingToSetting(View v){
-        // switching to Setting activity
+    // switching to DisplayScoreAndShare activity
+    public void movingToSharingActivity(View v){
         final Bundle bundle = getIntent().getExtras();
         String[] data = bundle.getStringArray("key");
         bundle.putStringArray("key", data);
-        final Intent intent = new Intent(this, Setting.class);
+        final Intent intent = new Intent(this, DisplayScoreAndShare.class);
 
         scoreLabel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,7 +164,7 @@ public class GameStart extends Activity {
         sendViewToBack(pillars[0]);
 
 
-        // Setting the first topPillar and  positioning it
+        // DisplayScoreAndShare the first topPillar and  positioning it
         tops[0] = new Top(this);
         tops[0].setFirstPillar();
 
@@ -181,14 +183,14 @@ public class GameStart extends Activity {
         }
 
 
-        //  Setting the giant pillar
+        //  DisplayScoreAndShare the giant pillar
         giantP = new GiantPillar(this);
 
         giantP.setX(tops[0].getX()-giantP.getGiantPillarWidth()/2);
         giantP.setY(tops[0].getY()+tops[0].getTopHeight()/2);
         game_layout.addView(giantP);
 
-        // Setting the topGiant pillar
+        // DisplayScoreAndShare the topGiant pillar
         topG = new TopGiantPillar(this);
         topG.setX(giantP.getX());
         topG.setY(giantP.getY());
@@ -369,6 +371,7 @@ public class GameStart extends Activity {
         giantP.setVisibility(View.INVISIBLE);
         topG.setVisibility(View.INVISIBLE);
         popupWindow.dismiss();
+
 
         for(int i=0; i<pillars.length; i++){
             pillars[i].setVisibility(View.GONE);
