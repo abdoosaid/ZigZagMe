@@ -217,7 +217,7 @@ public class GameStart extends Activity {
             yOffset*=1.2;
         }
 
-        DELAY=20;
+        DELAY=5;
         inGiantP=true;
 
         h.postDelayed(new Runnable() {
@@ -230,8 +230,6 @@ public class GameStart extends Activity {
                         // and inverse the direction of the ball
                         if(event.getAction() == MotionEvent.ACTION_UP){
                             ballRight = !ballRight;
-                            if(firstGame)
-                                ballRight=false;
                             counter+=5;
                             counterText.setText(String.valueOf(counter));
                             if(!mute)
@@ -381,9 +379,9 @@ public class GameStart extends Activity {
 
     }
 
+    // This method takes a score and orders it in the highScores array
+    // The highScores array contains just 4 high scores
     private void addHighScore(int score){
-        // This method takes a score and orders it in the highScores array
-        // The highScores array contains just 4 high scores
         for(int i=0; i<highScores.length; i++){
             if (score > highScores[i]){
                 for (int j=highScores.length-1; j>i; j--){
@@ -395,16 +393,16 @@ public class GameStart extends Activity {
         }
     }
 
+    // This method is to assign the scores to their correspondent TextViews
     private void assignScores(){
-        // This method is to assign the scores to their correspondent TextViews
         score1.setText(String.valueOf(highScores[0]));
         score2.setText(String.valueOf(highScores[1]));
         score3.setText(String.valueOf(highScores[2]));
         score4.setText(String.valueOf(highScores[3]));
     }
 
+    // This method is to show and hide the scoresTable when clicking on "High Scores" button
     public void showScores(View v){
-        // This method is to show and hide the scoresTable when clicking on "High Scores" button
         if(scoresTable.getVisibility() == View.VISIBLE)
             scoresTable.setVisibility(View.INVISIBLE);
         else {
@@ -422,6 +420,8 @@ public class GameStart extends Activity {
         }
     }
 
+
+    // This method is to control the sound
     public void mute(View v){
         mute=!mute;
         if(mute)
@@ -431,9 +431,12 @@ public class GameStart extends Activity {
 
     }
 
+
+
+    // This method manage the difficulty buttons styles and visibility
     public void setButtonState(View v){
         int id=v.getId();
-        if(id==2131492994){
+        if(id==R.id.level1Btn){
             level=1;
             level1.setTextColor(Color.BLACK);
             level1.setTypeface(null, Typeface.BOLD);
@@ -442,7 +445,7 @@ public class GameStart extends Activity {
             level3.setTextColor(Color.WHITE);
             level3.setTypeface(null, Typeface.NORMAL);
             difficultyTable.setVisibility(View.INVISIBLE);
-        }else if(id==2131492995){
+        }else if(id==R.id.level2Btn){
             level=2;
             level1.setTextColor(Color.WHITE);
             level1.setTypeface(null, Typeface.NORMAL);
@@ -451,7 +454,7 @@ public class GameStart extends Activity {
             level3.setTextColor(Color.WHITE);
             level3.setTypeface(null, Typeface.NORMAL);
             difficultyTable.setVisibility(View.INVISIBLE);
-        }else if(id==2131492996) {
+        }else if(id== R.id.level3Btn) {
             level=3;
             level1.setTextColor(Color.WHITE);
             level1.setTypeface(null, Typeface.NORMAL);
