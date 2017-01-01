@@ -36,41 +36,41 @@ import org.json.JSONObject;
 
 public class Splash extends Activity {
 
-    String[] jsonObjects = new String[3];
-    String[] data = {"name", "id"};
-    TextView textView;
-
+    private String[] jsonObjects = new String[3];
+    private String[] data = {"name", "id"};
+    private TextView terms_of_use;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // initializing Facebook SDK
         FacebookSdk.sdkInitialize(this);
         AppEventsLogger.activateApp(getApplication());
 
         setContentView(R.layout.activity_splash);
 
-        onViewCreated();
+        // initiating the views
+        initiateViews();
 
+        // working on Facebook login
         callbackManager = CallbackManager.Factory.create();
-        String[] permissions = {"public_profile", "user_friends"};
-        loginButton.setReadPermissions(permissions);
+        loginButton.setReadPermissions("public_profile", "user_friends");
 
+        // we don't show the loginButton if the user is already logged in
         if (isLoggedIn())
             loginButton.setVisibility(View.GONE);
 
+        // working on the animation of the logo
         final ImageView logo = (ImageView) findViewById(R.id.logo);
         final Animation animation = AnimationUtils.loadAnimation(getBaseContext(), R.anim.scale);
-
-
         if (logo != null) {
             logo.setAnimation(animation);
             animation.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
                 }
-
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     if (isLoggedIn()) {
@@ -94,6 +94,7 @@ public class Splash extends Activity {
             });
         }
 
+        // getting the info from Facebook login
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
             @Override
@@ -143,11 +144,12 @@ public class Splash extends Activity {
             }
         });
 
-        textView = (TextView) findViewById(R.id.terms);
-        textView.setTextColor(Color.BLACK);
-        textView.setPaintFlags(textView.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        // Styling the text of Terms Of Use
+        terms_of_use.setTextColor(Color.BLACK);
+        terms_of_use.setPaintFlags(terms_of_use.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
+    // A method to display Terms Of Use
     public void displayTerms(View view) {
         SpannableString ss = new SpannableString("By signing with Facebook, you agree on Terms of Use");
         ClickableSpan clickableSpan = new ClickableSpan() {
@@ -166,22 +168,28 @@ public class Splash extends Activity {
         };
         ss.setSpan(clickableSpan, 39, 51, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        textView.setText(ss);
-        textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setHighlightColor(Color.RED);
+        terms_of_use.setText(ss);
+        terms_of_use.setMovementMethod(LinkMovementMethod.getInstance());
+        terms_of_use.setHighlightColor(Color.RED);
     }
 
-    private void onViewCreated() {
+    // A method to initiate the views
+    private void initiateViews() {
+        terms_of_use = (TextView) findViewById(R.id.terms);
+
+        // we don't want to initiate login_button if the user is already logged in
         if (loginButton == null)
             loginButton = (LoginButton) findViewById(R.id.login_button);
 
     }
 
+    // A method to check whether the user is logged in or not
     public boolean isLoggedIn() {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         return accessToken != null;
     }
 
+    // A method to move to GameStart Activity
     private void goToGameStart(String[] data) {
         Bundle bundle = new Bundle();
         Intent intent = new Intent(this, GameStart.class);
@@ -189,6 +197,7 @@ public class Splash extends Activity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
 
     @Override
     public void onResume() {
