@@ -50,6 +50,7 @@ public class GameStart extends Activity {
     float xOffset, yOffset;
     MediaPlayer beep, gameOverBeep;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
