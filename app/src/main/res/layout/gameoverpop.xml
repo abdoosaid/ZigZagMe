@@ -21,6 +21,18 @@
         android:layout_centerVertical="true" />
 
     <Button
+        android:id="@+id/share_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="Share it"
+        android:onClick="movingToSharingActivity"
+        android:layout_above="@id/replay"
+        android:textSize="24sp"
+        style="@style/Widget.AppCompat.Button.Colored" />
+
+    <Button
         android:id="@+id/replay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +51,6 @@
         android:text="My Score"
         android:textSize="36sp"
         android:clickable="true"
-        android:onClick="movingToSharingActivity"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"

@@ -2,6 +2,7 @@ package com.abdoosa.zigzagme;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,9 +11,13 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -119,6 +124,7 @@ public class DisplayScoreAndShare extends Activity {
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
+    // This is to show an alert Dialog to change the username
     public void showChangeLangDialog() {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -126,6 +132,8 @@ public class DisplayScoreAndShare extends Activity {
         dialogBuilder.setView(dialogView);
 
         final EditText edt = (EditText) dialogView.findViewById(R.id.editname);
+        edt.setText(username.getText());
+        edt.selectAll();
 
         dialogBuilder.setTitle("Username");
         dialogBuilder.setMessage("Enter Your Name");
@@ -141,6 +149,7 @@ public class DisplayScoreAndShare extends Activity {
             }
         });
         AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         dialog.show();
     }
 }

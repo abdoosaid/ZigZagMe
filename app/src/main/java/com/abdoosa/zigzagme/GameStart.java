@@ -64,12 +64,11 @@ public class GameStart extends Activity {
 
     }
 
+    // This method is to prevent the current activity from getting back to the previous one
+    // instead, if BACK button is pressed, The game will exit
     @Override
     public void onBackPressed() {
-        if (popupWindow.isShowing())
-            moveTaskToBack(true);
-        else
-            popupWindow.showAtLocation(game_layout, Gravity.CENTER, 0, 0);
+        moveTaskToBack(true);
     }
 
     // switching to DisplayScoreAndShare activity
@@ -245,6 +244,7 @@ public class GameStart extends Activity {
                 // showing the score and adding it to highscores if it's in the first 4 high scores
                 if(gameOver){
                     modifyingLayoutWhenGameOver();
+                    //onBackPressed();
                     return;
                 }
 
@@ -421,6 +421,7 @@ public class GameStart extends Activity {
         }
     }
 
+<<<<<<< Updated upstream
 
     // This method is to control the sound
     public void mute(View v){
@@ -438,6 +439,11 @@ public class GameStart extends Activity {
     public void setButtonState(View v){
         int id=v.getId();
         if(id==R.id.level1Btn){
+=======
+    public void setButtonState(View v){
+        int id=v.getId();
+        if(id == R.id.level1Btn){
+>>>>>>> Stashed changes
             level=1;
             level1.setTextColor(Color.BLACK);
             level1.setTypeface(null, Typeface.BOLD);
@@ -446,7 +452,11 @@ public class GameStart extends Activity {
             level3.setTextColor(Color.WHITE);
             level3.setTypeface(null, Typeface.NORMAL);
             difficultyTable.setVisibility(View.INVISIBLE);
+<<<<<<< Updated upstream
         }else if(id==R.id.level2Btn){
+=======
+        }else if(id == R.id.level2Btn){
+>>>>>>> Stashed changes
             level=2;
             level1.setTextColor(Color.WHITE);
             level1.setTypeface(null, Typeface.NORMAL);
@@ -455,7 +465,11 @@ public class GameStart extends Activity {
             level3.setTextColor(Color.WHITE);
             level3.setTypeface(null, Typeface.NORMAL);
             difficultyTable.setVisibility(View.INVISIBLE);
+<<<<<<< Updated upstream
         }else if(id== R.id.level3Btn) {
+=======
+        }else if(id == R.id.level3Btn) {
+>>>>>>> Stashed changes
             level=3;
             level1.setTextColor(Color.WHITE);
             level1.setTypeface(null, Typeface.NORMAL);
@@ -466,5 +480,16 @@ public class GameStart extends Activity {
             difficultyTable.setVisibility(View.INVISIBLE);
         }
     }
+
+    public void mute(View v){
+        mute=!mute;
+        if(mute)
+            muteBtn.setText("UNMUTE");
+        else
+            muteBtn.setText("MUTE");
+
+    }
+
+
 
 }
