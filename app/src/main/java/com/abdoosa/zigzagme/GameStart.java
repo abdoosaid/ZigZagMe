@@ -112,7 +112,7 @@ public class GameStart extends Activity {
                     popupLayout.setBackgroundColor(Color.argb(148,90, 0, 0));
                 }
             }
-        }, 50);
+        }, 2);
 
         // if a touch has been detected, the pillars and the ball start moving
         game_layout.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,6 @@ public class GameStart extends Activity {
                 movement();
             }
         });
-
     }
 
     public void linkingXMLViews() {
@@ -216,7 +215,7 @@ public class GameStart extends Activity {
             yOffset*=1.2;
         }
 
-        DELAY=3;
+        DELAY=20;
         inGiantP=true;
 
         h.postDelayed(new Runnable() {
@@ -266,16 +265,18 @@ public class GameStart extends Activity {
         popupWindow.showAtLocation(game_layout, Gravity.CENTER, 0, 0);
         counterText.setVisibility(View.INVISIBLE);
         scoreShow.setText(String.valueOf(counter));
+        scoreLabel.setVisibility(View.VISIBLE);
+        scoreShow.setVisibility(View.VISIBLE);
         addHighScore(counter);
         assignScores();
-        counterText.setText("0");
-        counter=0;
-
 
         keyValues = getApplicationContext().getSharedPreferences("counter", 0);
         keyValuesEditor = keyValues.edit();
         keyValuesEditor.putInt("counter", counter);
         keyValuesEditor.apply();
+
+        counterText.setText("0");
+        counter=0;
     }
 
     public void MovingBall() {
@@ -351,8 +352,15 @@ public class GameStart extends Activity {
         // The gameOver popup windows will closed
         // The view of the game will be reset (initiateView and movement method)
         if(firstGame){
-            movement();
             popupWindow.dismiss();
+            // if a touch has been detected, the pillars and the ball start moving
+            game_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    game_layout.setOnClickListener(null);
+                    movement();
+                }
+            });
             return;
         }
 
