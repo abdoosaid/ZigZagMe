@@ -10,15 +10,14 @@
     <RelativeLayout
         android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
+        android:layout_height="280dp"
         >
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="350px"
-            android:layout_height="293px"
+            android:layout_width="500px"
+            android:layout_height="383px"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="107dp"
             android:scaleType="fitXY"
             android:src="@drawable/logo" />
     </RelativeLayout>
@@ -26,8 +25,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/layout1"
-        >
+        android:layout_below="@+id/layout1">
 
         <com.facebook.login.widget.LoginButton
             android:id="@+id/login_button"
@@ -36,18 +34,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="77dp"
             android:visibility="gone"/>
-
-        <TextView
-            android:id="@+id/terms"
-            android:text="By signing with Facebook, you agree on Terms of Use"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="118dp"
-            android:clickable="true"
-            android:onClick="displayTerms"
-            android:textStyle="normal|bold" />
 
     </RelativeLayout>
 

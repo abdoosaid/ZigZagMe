@@ -32,7 +32,7 @@ public class GameStart extends Activity {
     TextView counterText, scoreShow, score1, score2, score3, score4, scoreLabel;
     ViewGroup popupLayout;
     PopupWindow popupWindow;
-    Button showHighScores, difficultyBtn, level1, level2, level3, muteBtn, replayBtn;
+    Button showHighScores, difficultyBtn, level1, level2, level3, muteBtn, replayBtn, share_btn;
 
 
     // Declaring different variables
@@ -78,7 +78,7 @@ public class GameStart extends Activity {
         bundle.putStringArray("key", data);
         final Intent intent = new Intent(this, DisplayScoreAndShare.class);
 
-        scoreLabel.setOnClickListener(new View.OnClickListener() {
+        share_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent.putExtras(bundle);
@@ -135,7 +135,7 @@ public class GameStart extends Activity {
 
         // Connecting the views and the layouts to their correspondents in XML files
         layoutInflater = (LayoutInflater) this.getSystemService(this.LAYOUT_INFLATER_SERVICE);
-        popupLayout = (ViewGroup) layoutInflater.inflate(R.layout.gameoverpop, null);
+        popupLayout = (ViewGroup) layoutInflater.inflate(R.layout.game_over_pop, null);
         popupWindow = new PopupWindow(popupLayout, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, false);
 
         showHighScores = (Button) popupLayout.findViewById(R.id.highScores);
@@ -154,6 +154,7 @@ public class GameStart extends Activity {
         level3 = (Button) popupLayout.findViewById(R.id.level3Btn);
         muteBtn= (Button) popupLayout.findViewById(R.id.muteBtn);
         replayBtn= (Button) popupLayout.findViewById(R.id.replay);
+        share_btn = (Button) popupLayout.findViewById(R.id.share_btn);
     }
 
     public void settingDynamicViews() {
@@ -421,8 +422,6 @@ public class GameStart extends Activity {
         }
     }
 
-<<<<<<< Updated upstream
-
     // This method is to control the sound
     public void mute(View v){
         mute=!mute;
@@ -433,17 +432,10 @@ public class GameStart extends Activity {
 
     }
 
-
-
     // This method manage the difficulty buttons styles and visibility
     public void setButtonState(View v){
         int id=v.getId();
         if(id==R.id.level1Btn){
-=======
-    public void setButtonState(View v){
-        int id=v.getId();
-        if(id == R.id.level1Btn){
->>>>>>> Stashed changes
             level=1;
             level1.setTextColor(Color.BLACK);
             level1.setTypeface(null, Typeface.BOLD);
@@ -452,11 +444,7 @@ public class GameStart extends Activity {
             level3.setTextColor(Color.WHITE);
             level3.setTypeface(null, Typeface.NORMAL);
             difficultyTable.setVisibility(View.INVISIBLE);
-<<<<<<< Updated upstream
-        }else if(id==R.id.level2Btn){
-=======
         }else if(id == R.id.level2Btn){
->>>>>>> Stashed changes
             level=2;
             level1.setTextColor(Color.WHITE);
             level1.setTypeface(null, Typeface.NORMAL);
@@ -465,11 +453,7 @@ public class GameStart extends Activity {
             level3.setTextColor(Color.WHITE);
             level3.setTypeface(null, Typeface.NORMAL);
             difficultyTable.setVisibility(View.INVISIBLE);
-<<<<<<< Updated upstream
-        }else if(id== R.id.level3Btn) {
-=======
         }else if(id == R.id.level3Btn) {
->>>>>>> Stashed changes
             level=3;
             level1.setTextColor(Color.WHITE);
             level1.setTypeface(null, Typeface.NORMAL);
@@ -480,16 +464,5 @@ public class GameStart extends Activity {
             difficultyTable.setVisibility(View.INVISIBLE);
         }
     }
-
-    public void mute(View v){
-        mute=!mute;
-        if(mute)
-            muteBtn.setText("UNMUTE");
-        else
-            muteBtn.setText("MUTE");
-
-    }
-
-
 
 }

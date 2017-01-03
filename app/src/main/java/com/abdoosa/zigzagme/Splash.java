@@ -3,21 +3,13 @@ package com.abdoosa.zigzagme;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -36,9 +28,7 @@ import org.json.JSONObject;
 
 public class Splash extends Activity {
 
-    private String[] jsonObjects = new String[3];
-    private String[] data = {"name", "id"};
-    private TextView terms_of_use;
+    private String[] jsonObjects = new String[3], data = {"name", "id"};
     private LoginButton loginButton;
     private CallbackManager callbackManager;
 
@@ -71,6 +61,7 @@ public class Splash extends Activity {
                 @Override
                 public void onAnimationStart(Animation animation) {
                 }
+
                 @Override
                 public void onAnimationEnd(Animation animation) {
                     if (isLoggedIn()) {
@@ -144,39 +135,11 @@ public class Splash extends Activity {
             }
         });
 
-        // Styling the text of Terms Of Use
-        terms_of_use.setTextColor(Color.BLACK);
-        terms_of_use.setPaintFlags(terms_of_use.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
-    // A method to display Terms Of Use
-    public void displayTerms(View view) {
-        SpannableString ss = new SpannableString("By signing with Facebook, you agree on Terms of Use");
-        ClickableSpan clickableSpan = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                //startActivity(new Intent(MyActivity.this, NextActivity.class));
-                Log.e("displayTerms", "lol");
-                Toast.makeText(getApplicationContext(), "looool", Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void updateDrawState(TextPaint ds) {
-                super.updateDrawState(ds);
-                ds.setUnderlineText(false);
-            }
-        };
-        ss.setSpan(clickableSpan, 39, 51, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        terms_of_use.setText(ss);
-        terms_of_use.setMovementMethod(LinkMovementMethod.getInstance());
-        terms_of_use.setHighlightColor(Color.RED);
-    }
 
     // A method to initiate the views
     private void initiateViews() {
-        terms_of_use = (TextView) findViewById(R.id.terms);
-
         // we don't want to initiate login_button if the user is already logged in
         if (loginButton == null)
             loginButton = (LoginButton) findViewById(R.id.login_button);

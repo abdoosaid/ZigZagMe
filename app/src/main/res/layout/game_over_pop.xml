@@ -27,8 +27,9 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:text="Share it"
+        android:clickable="true"
         android:onClick="movingToSharingActivity"
-        android:layout_above="@id/replay"
+        android:layout_above="@+id/replay"
         android:textSize="24sp"
         style="@style/Widget.AppCompat.Button.Colored" />
 
@@ -50,7 +51,6 @@
         android:id="@+id/scoreLabel"
         android:text="My Score"
         android:textSize="36sp"
-        android:clickable="true"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"

@@ -2,7 +2,6 @@ package com.abdoosa.zigzagme;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,19 +10,18 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.ProfilePictureView;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -90,6 +88,38 @@ public class DisplayScoreAndShare extends Activity {
         myScore = (TextView) findViewById(R.id.my_score);
     }
 
+    // This is to show an alert Dialog to change the username
+    public void showChangeLangDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt = (EditText) dialogView.findViewById(R.id.editname);
+        edt.setText(username.getText());
+        edt.selectAll();
+
+        dialogBuilder.setTitle("Username");
+        dialogBuilder.setMessage("Enter Your Name");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if (edt.getText().toString().length() != 0)
+                    username.setText(edt.getText().toString());
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
+    }
+
+    /*
+    * The next three method is to take a screenshot and share it
+    */
     // take a screenshot
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
@@ -124,32 +154,5 @@ public class DisplayScoreAndShare extends Activity {
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
 
-    // This is to show an alert Dialog to change the username
-    public void showChangeLangDialog() {
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
-        dialogBuilder.setView(dialogView);
 
-        final EditText edt = (EditText) dialogView.findViewById(R.id.editname);
-        edt.setText(username.getText());
-        edt.selectAll();
-
-        dialogBuilder.setTitle("Username");
-        dialogBuilder.setMessage("Enter Your Name");
-        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                if (edt.getText().toString().length() != 0)
-                    username.setText(edt.getText().toString());
-            }
-        });
-        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-        dialog.show();
-    }
 }
