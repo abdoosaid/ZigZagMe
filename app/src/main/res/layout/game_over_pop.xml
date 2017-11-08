@@ -108,8 +108,6 @@
                 android:text="Easy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
                 android:id="@+id/level1Btn"
                 android:minHeight="20dp"
                 style="@style/Widget.AppCompat.Button.Borderless"
@@ -160,14 +158,14 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="1 |"
+                android:id="@+id/scoreLabel1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/scoreLabel1"
-                android:textSize="24sp"
-                android:layout_marginRight="0dp"
                 android:layout_marginLeft="0dp"
-                android:layout_weight="3" />
+                android:layout_marginRight="1dp"
+                android:layout_weight="3"
+                android:text="1 |"
+                android:textSize="24sp" />
 
             <TextView
                 android:text="0"
@@ -183,14 +181,14 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="2 |"
+                android:id="@+id/scoreLabel2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/scoreLabel2"
-                android:textSize="24sp"
-                android:layout_marginRight="0dp"
                 android:layout_marginLeft="0dp"
-                android:layout_weight="3" />
+                android:layout_marginRight="1dp"
+                android:layout_weight="3"
+                android:text="2 |"
+                android:textSize="24sp" />
 
             <TextView
                 android:text="0"
@@ -207,14 +205,14 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="3 |"
-                android:layout_height="match_parent"
                 android:id="@+id/scoreLabel3"
-                android:textSize="24sp"
-                android:layout_marginRight="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="0dp"
+                android:layout_marginRight="1dp"
                 android:layout_weight="3"
-                android:layout_width="match_parent" />
+                android:text="3 |"
+                android:textSize="24sp" />
 
             <TextView
                 android:text="0"
@@ -231,14 +229,14 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="4 |"
+                android:id="@+id/scoreLabel4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/scoreLabel4"
-                android:textSize="24sp"
-                android:layout_marginRight="0dp"
                 android:layout_marginLeft="0dp"
-                android:layout_weight="3" />
+                android:layout_marginRight="1dp"
+                android:layout_weight="3"
+                android:text="4 |"
+                android:textSize="24sp" />
 
             <TextView
                 android:text="0"

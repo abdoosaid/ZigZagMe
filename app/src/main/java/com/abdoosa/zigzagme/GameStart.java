@@ -114,7 +114,7 @@ public class GameStart extends Activity {
                     popupLayout.setBackgroundColor(Color.argb(148,90, 0, 0));
                 }
             }
-        }, 2);
+        }, 500);
 
         // if a touch has been detected, the pillars and the ball start moving
         game_layout.setOnClickListener(new View.OnClickListener() {
@@ -205,6 +205,8 @@ public class GameStart extends Activity {
     }
 
     public void movement(){
+        if(firstGame)
+            counterText.setVisibility(View.VISIBLE);
         // This method is for starting the game and make the views moves
         xOffset=devWidth/100;
         yOffset= (float) (xOffset*0.72);
@@ -216,6 +218,9 @@ public class GameStart extends Activity {
         else if(level == 3){
             xOffset*=1.2;
             yOffset*=1.2;
+        }else{
+            xOffset*=1;
+            yOffset*=1;
         }
 
         DELAY=5;
@@ -414,6 +419,13 @@ public class GameStart extends Activity {
     }
 
     public void displayDifficulties(View v){
+        if(level==1)
+            level1.setTextColor(Color.BLACK);
+        else if(level==2)
+            level2.setTextColor(Color.BLACK);
+        else
+            level3.setTextColor(Color.BLACK);
+
         if(difficultyTable.getVisibility() == View.VISIBLE)
             difficultyTable.setVisibility(View.INVISIBLE);
         else {
@@ -438,31 +450,20 @@ public class GameStart extends Activity {
         if(id==R.id.level1Btn){
             level=1;
             level1.setTextColor(Color.BLACK);
-            level1.setTypeface(null, Typeface.BOLD);
             level2.setTextColor(Color.WHITE);
-            level2.setTypeface(null, Typeface.NORMAL);
             level3.setTextColor(Color.WHITE);
-            level3.setTypeface(null, Typeface.NORMAL);
-            difficultyTable.setVisibility(View.INVISIBLE);
         }else if(id == R.id.level2Btn){
             level=2;
             level1.setTextColor(Color.WHITE);
-            level1.setTypeface(null, Typeface.NORMAL);
             level2.setTextColor(Color.BLACK);
-            level2.setTypeface(null, Typeface.BOLD);
             level3.setTextColor(Color.WHITE);
-            level3.setTypeface(null, Typeface.NORMAL);
-            difficultyTable.setVisibility(View.INVISIBLE);
         }else if(id == R.id.level3Btn) {
             level=3;
             level1.setTextColor(Color.WHITE);
-            level1.setTypeface(null, Typeface.NORMAL);
             level2.setTextColor(Color.WHITE);
-            level2.setTypeface(null, Typeface.NORMAL);
             level3.setTextColor(Color.BLACK);
-            level3.setTypeface(null, Typeface.BOLD);
-            difficultyTable.setVisibility(View.INVISIBLE);
         }
+        difficultyTable.setVisibility(View.INVISIBLE);
     }
 
 }
